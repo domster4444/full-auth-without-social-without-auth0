@@ -1,0 +1,6 @@
+[+] learn authorization
+[+] learn pagination
+[+] learn relational model in mongoose
+
+git kraken
+insomnia -automatic api testing
