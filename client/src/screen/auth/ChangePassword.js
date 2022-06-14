@@ -2,7 +2,12 @@ import { Box, TextField, Button, Alert } from '@mui/material';
 import { useState } from 'react';
 import { useChangeUserPasswordMutation } from '../../redux/api/auth/userAuthApi';
 import { getTokenByValue } from '../../services/LocalStorageService';
+import { useSelector } from 'react-redux';
 const ChangePassword = () => {
+  const userInfo = useSelector((state) => state.userInfo);
+
+  console.log('global state');
+  console.log(userInfo);
   const [changeUserPassword, { isSuccess, isError, isLoading }] =
     useChangeUserPasswordMutation();
 
