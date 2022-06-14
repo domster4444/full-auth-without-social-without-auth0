@@ -7,6 +7,7 @@ import { getTokenByValue } from '../../services/LocalStorageService';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUserInfo, unsetUserInfo } from '../../redux/features/userSlice';
+import { unsetUserToken } from '../../redux/features/authSlice';
 
 import { useSelector } from 'react-redux';
 
@@ -52,6 +53,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     console.log('Logout Clicked');
+    dispatch(
+      unsetUserToken({
+        token: null,
+      })
+    );
     dispatch(
       unsetUserInfo({
         email: null,

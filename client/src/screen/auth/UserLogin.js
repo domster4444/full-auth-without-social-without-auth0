@@ -1,10 +1,15 @@
 import { TextField, Button, Box, Alert } from '@mui/material';
 import { useState } from 'react';
+
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../../redux/api/auth/userAuthApi';
 import { storeTokenByValue } from '../../services/LocalStorageService';
+import { useDispatch } from 'react-redux';
+import { setUserToken } from '../../redux/features/authSlice';
 
 const UserLogin = () => {
+  const dispatch = useDispatch();
+
   const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
   //? local  api error state
   const [error, setError] = useState({
@@ -29,6 +34,11 @@ const UserLogin = () => {
         if (res.data.status === 'success') {
           //! TODO: TOKEN STORE garnu xa
           storeTokenByValue(res.data.token);
+          dispatch(
+            setUserToken({
+              token: res.data.token,
+            })
+          );
 
           navigate('/dashboard');
         }

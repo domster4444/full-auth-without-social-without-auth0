@@ -6,10 +6,12 @@ import Contact from './screen/Contact';
 import Dashboard from './screen/Dashboard';
 import Home from './screen/Home';
 import Layout from './screen/Layout';
-import { getTokenByValue } from './services/LocalStorageService';
+import { Navigate } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
 function App() {
-  const token = getTokenByValue();
+  //? our global state token of redux toolkit used for making protected routes
+  const { token } = useSelector((state) => state.authInfo);
 
   return (
     <>
@@ -18,7 +20,10 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="login" element={<LoginReg />} />
+            <Route
+              path="login"
+              element={!token ? <LoginReg /> : <Navigate to="/dashboard" />}
+            />
             <Route
               path="sendpasswordresetemail"
               element={<SendPasswordResetEmail />}
